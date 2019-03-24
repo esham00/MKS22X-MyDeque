@@ -24,19 +24,19 @@ public class MyDeque<E>{
 	String output = "[";
 	if (start < end) {
 	    for(int i = start; i < end; i++) {
-		if (i == end-1) {
-		    output += " " + data[i];
+		if (i == end) {
+		    output += data[i];
 		} else {
 		    output += data[i] + ", ";
 		}
 	    }
 	} else {
 	    for(int i = start; i < data.length; i++) {
-		output += data[i];
+		output += data[i] + ", ";
 	    }
 	    for(int i = 0; i < end; i++) {
 		if(i == end-1) {
-		    output += " " + data[i];
+		    output += data[i];
 		} else {
 		    output += data[i] + ", ";
 		}
@@ -48,7 +48,7 @@ public class MyDeque<E>{
 	return data[start];
     }
     public E getLast() {
-	return data[end];
+	return data[end-1];
     }
     public E removeFirst() {
 	E old = data[start];
@@ -75,12 +75,14 @@ public class MyDeque<E>{
     }
     public E addFirst(E element) {
 	E old = data[start];
-	if(start < end) {
-	    data[start-1] = element;
-	    start--;
-	} else if (start == 0 && data[data.length-1] == null) {
-	    data[data.length-1] = element;
-	    start = data.length-1;
+	if (start == 0 && data[data.length-1] == null) {
+	    if(data[start] == null) {
+		data[start] = element;
+	    }
+	    else{
+		data[data.length-1] = element;
+		start = data.length-1;
+	    }
 	} else if (start-1 > end && data[start-1] == null) {
 	    data[start-1] = element;
 	    start--;
@@ -100,8 +102,8 @@ public class MyDeque<E>{
 	    end++;
 	}
 	else if (end < data.length-1) {
-	    if(data[end+1] == null) {
-		data[end+1] = element;
+	    if(data[end] == null) {
+		data[end] = element;
 		end++;
 	    }
 	} else if (data[0] == null)  {
@@ -109,7 +111,7 @@ public class MyDeque<E>{
 	    end = 0;
 	} else {
 	    resize();
-	    data[end+1] = element;
+	    data[end-1] = element;
 	    end++;
 	}
 	size++;
@@ -133,7 +135,7 @@ public class MyDeque<E>{
 	    }
 	}
 	start = 0;
-	end = size-1;
+	end = size;
 	data = temp;
     }
 	@SuppressWarnings("unchecked")
@@ -142,6 +144,9 @@ public class MyDeque<E>{
 	a.addFirst(1);
 	a.addFirst(0);
 	a.addFirst(3);
+	a.addLast(4);
+	a.addLast(5);
+	a.addLast(6);
 	System.out.println(a);
 	System.out.println(a.getFirst());
 	System.out.println(a.getLast());
