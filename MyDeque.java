@@ -2,11 +2,13 @@ public class MyDeque<E>{
     private E[] data;
     private int size, start, end;
     public MyDeque() {
-	data = new E[20];
+	@SuppressWarnings("unchecked")
+	    data = new (E[])new Object[20];
 	size = 0;
     }
     public MyDeque(int initialCapacity) {
-	data = new E[initialCapacity];
+	@SuppressWarnings("unchecked")
+	    data = new (E[])new Object[initialCapacity];
 	size = 0;
     }
     public int size() {
@@ -47,12 +49,11 @@ public class MyDeque<E>{
 	data[start ] = null;
 	if (start == data.length-1) {
 	    start = 0;
-	    size--;
 	}
 	else {
 	    start++;
-	    size--;
 	}
+	size--;
 	return old;
     }
     public E removeLast() {
@@ -60,25 +61,23 @@ public class MyDeque<E>{
 	data[end] = null;
 	if(end == 0) {
 	    end = data.length-1;
-	    size--;
 	} else {
 	    end--;
-	    size--;
 	}
+	size--;
 	return old;
     }
     public E addFirst(E element) {
-	int old = data[start];
+	E old = data[start];
 	if(start < end) {
 	    data[start-1] = element;
 	    start--;
 	} else if (start == 0 && data[data.length-1] == null) {
 	    data[data.length-1] = element;
 	    start = data.length-1;
-	} else if (start > end) {
-		data[start-1] = element;
-		start--;
-	    }
+	} else if (start-1 > end && data[start-1] == null) {
+	    data[start-1] = element;
+	    start--;
 	}
 	else {
 	    resize();
@@ -103,6 +102,7 @@ public class MyDeque<E>{
 	    data[end+1] = element;
 	    end++;
 	}
+	size++;
 	return old;
     }
     private void resize() {
@@ -125,3 +125,9 @@ public class MyDeque<E>{
 	end = size-1;
 	data = temp;
     }
+    public static void main(String[] args) {
+	MyDeque a = new MyDeque(5);
+	a.addLast(1);
+	System.out.println(a);
+    }
+}
