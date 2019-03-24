@@ -1,3 +1,4 @@
+import java.util.*;
 public class MyDeque<E>{
     private E[] data;
     private int size, start, end;
@@ -48,12 +49,21 @@ public class MyDeque<E>{
 	return output + "]";
     }
     public E getFirst() {
+	if (data[start] == null) {
+	    throw new NoSuchElementException();
+	}
 	return data[start];
     }
     public E getLast() {
+	if (data[end] == null) {
+	    throw new NoSuchElementException();
+	}
 	return data[end];
     }
     public E removeFirst() {
+	if (data[start] == null) {
+	    throw new NoSuchElementException();
+	}
 	E old = data[start];
 	data[start ] = null;
 	if (start == data.length-1) {
@@ -66,6 +76,9 @@ public class MyDeque<E>{
 	return old;
     }
     public E removeLast() {
+	if (data[end] == null) {
+	    throw new NoSuchElementException();
+	}
 	E old = data[end];
 	data[end] = null;
 	if(end == 0) {
@@ -77,7 +90,11 @@ public class MyDeque<E>{
 	return old;
     }
     //adding to the first
+    @SuppressWarnings("unchecked")
     public E addFirst(E element) {
+	if (element == null) {
+	    throw new NullPointerException();
+	}
 	E old = data[start];
 	//beginning of adding, when the whole array is empty
 	if (data[start] == null) {
@@ -105,12 +122,14 @@ public class MyDeque<E>{
 	size++;
 	return old;
     }
+    @SuppressWarnings("unchecked")
     public E addLast(E element) {
+	if (element == null) {
+	    throw new NullPointerException();
+	}
 	E old = data[end];
-	//this is if the end is one or two ahead of the start
-	if (end == start+1 || end == start+2) {
+	if (data[end] == null) {
 	    data[end] = element;
-	    end++;
 	}
 	//if it is less than the array length
 	else if (end < data.length-1 && data[end+1] == null) {
@@ -142,62 +161,65 @@ public class MyDeque<E>{
 	    }
 	} else {
 	    for(int i = 0; i < data.length-start; i++) {
-		// System.out.println(data[i+start]);
-		// System.out.println(temp[i]);
-		// System.out.println("Index: " + i);
+	        System.out.println(data[i+start]);
+	        System.out.println(temp[i]);
+		System.out.println("Index: " + i);
 		temp[i] = data[i+start];
 	    }
 	    for(int i = 0; i <= end; i++) {
-		// System.out.println(data[i]);
-		// System.out.println(temp[i+start]);
-		// System.out.println("Index: " + (i+start-1));
-		temp[i+start-1] = data[i];
+		System.out.println(data[i]);
+		System.out.println(temp[i+start]);
+		System.out.println("Index: " + (i+start+1));
+		temp[i+start+1] = data[i];
 	    }
 	}
 	start = 0;
 	end = size-1;
 	data = temp;
     }
-    // @SuppressWarnings("unchecked")
-    // public static void main(String[] args) {
-    // 	MyDeque a = new MyDeque(5);
-    // 	a.addFirst(1);
-    // 	System.out.println(a.toString());
-    // 	a.addFirst(0);
-    // 	System.out.println(a.toString());
-    // 	a.addFirst(3);
-    // 	System.out.println(a.toString());
-    // 	a.addLast(4);
-    // 	System.out.println(a.toString());
-    // 	a.addLast(5);
-    // 	System.out.println(a.toString());
-    // 	a.addLast(6);
-    // 	System.out.println(a);
-    // 	System.out.println(a.getFirst());
-    // 	System.out.println(a.getLast());
-    // 	a.removeFirst();
-    // 	System.out.println(a.getFirst());
-    // 	System.out.println(a.getLast());
-    // 	System.out.println(a);
-    // 	a.removeFirst();
-    // 	System.out.println(a.getFirst());
-    // 	System.out.println(a.getLast());
-    // 	System.out.println(a);
-    // 	a.removeFirst();
-    // 	System.out.println(a.getFirst());
-    // 	System.out.println(a.getLast());
-    // 	System.out.println(a);
-    // 	a.removeLast();
-    // 	System.out.println(a.getFirst());
-    // 	System.out.println(a.getLast());
-    // 	System.out.println(a);
-    // 	a.removeLast();
-    // 	System.out.println(a.getFirst());
-    // 	System.out.println(a.getLast());
-    // 	System.out.println(a);
-    // 	a.removeLast();
-    // 	System.out.println(a.getFirst());
-    // 	System.out.println(a.getLast());
-    // 	System.out.println(a);
-    // }
+    @SuppressWarnings("unchecked")
+    public static void main(String[] args) {
+    	MyDeque a = new MyDeque(5);
+	a.addLast(0);
+	System.out.println(a.getFirst());
+	System.out.println(a);
+    	a.addFirst(1);
+    	System.out.println(a.toString());
+    	a.addFirst(0);
+    	System.out.println(a.toString());
+    	a.addFirst(3);
+    	System.out.println(a.toString());
+    	a.addLast(4);
+    	System.out.println(a.toString());
+    	a.addLast(5);
+    	System.out.println(a.toString());
+    	a.addLast(6);
+    	System.out.println(a);
+    	System.out.println(a.getFirst());
+    	System.out.println(a.getLast());
+    	a.removeFirst();
+    	System.out.println(a.getFirst());
+    	System.out.println(a.getLast());
+    	System.out.println(a);
+    	a.removeFirst();
+    	System.out.println(a.getFirst());
+    	System.out.println(a.getLast());
+    	System.out.println(a);
+    	a.removeFirst();
+    	System.out.println(a.getFirst());
+    	System.out.println(a.getLast());
+    	System.out.println(a);
+    	a.removeLast();
+    	System.out.println(a.getFirst());
+    	System.out.println(a.getLast());
+    	System.out.println(a);
+    	a.removeLast();
+    	System.out.println(a.getFirst());
+    	System.out.println(a.getLast());
+    	System.out.println(a);
+    	a.removeLast();
+    	System.out.println(a.getFirst());
+    	System.out.println(a.getLast());
+    	System.out.println(a);
+    }
 }
