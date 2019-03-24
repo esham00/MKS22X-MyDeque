@@ -171,7 +171,7 @@ public class MyDeque<E>{
 	System.out.println(a.toString());
 	a.addLast(5);
 	System.out.println(a.toString());
-	a.addLast(6);
+	a.addFirst(6);
 	System.out.println(a);
 	System.out.println(a.getFirst());
 	System.out.println(a.getLast());
