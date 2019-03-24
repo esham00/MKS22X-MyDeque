@@ -1,7 +1,7 @@
 public class MyDeque<E>{
     private E[] data;
     private int size, start, end;
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public MyDeque() {
 	E[] DATA =(E[])new Object[20];
 	data = DATA;
@@ -9,7 +9,7 @@ public class MyDeque<E>{
 	start = 0;
 	end = 0;
     }
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public MyDeque(int initialCapacity) {
 	E[] DATA = (E[])new Object[initialCapacity];
 	data = DATA;
@@ -142,19 +142,23 @@ public class MyDeque<E>{
 	    }
 	} else {
 	    for(int i = 0; i < data.length-start; i++) {
-		if(data[i] != null) {
-		    temp[i] = data[i+start];
-		}
+		// System.out.println(data[i+start]);
+		// System.out.println(temp[i]);
+		// System.out.println("Index: " + i);
+		temp[i] = data[i+start];
 	    }
-	    for(int i = 0; i < end; i++) {
-		temp[i] = data[i];
+	    for(int i = 0; i <= end; i++) {
+		// System.out.println(data[i]);
+		// System.out.println(temp[i+start]);
+		// System.out.println("Index: " + (i+start-1));
+		temp[i+start-1] = data[i];
 	    }
 	}
 	start = 0;
-	end = size;
+	end = size-1;
 	data = temp;
     }
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
 	MyDeque a = new MyDeque(5);
 	a.addFirst(1);
