@@ -22,8 +22,11 @@ public class MyDeque<E>{
     }
     public String toString() {
 	String output = "[";
-	if (start < end) {
-	    for(int i = start; i < end; i++) {
+	if (start == end) {
+	    output += data[start];
+	}
+	else if (start < end) {
+	    for(int i = start; i <= end; i++) {
 		if (i == end) {
 		    output += data[i];
 		} else {
@@ -34,8 +37,8 @@ public class MyDeque<E>{
 	    for(int i = start; i < data.length; i++) {
 		output += data[i] + ", ";
 	    }
-	    for(int i = 0; i < end; i++) {
-		if(i == end-1) {
+	    for(int i = 0; i <= end; i++) {
+		if(i == end) {
 		    output += data[i];
 		} else {
 		    output += data[i] + ", ";
@@ -48,7 +51,7 @@ public class MyDeque<E>{
 	return data[start];
     }
     public E getLast() {
-	return data[end-1];
+	return data[end];
     }
     public E removeFirst() {
 	E old = data[start];
@@ -73,21 +76,28 @@ public class MyDeque<E>{
 	size--;
 	return old;
     }
+    //adding to the first
     public E addFirst(E element) {
 	E old = data[start];
-	if (start == 0 && data[data.length-1] == null) {
-	    if(data[start] == null) {
-		data[start] = element;
-	    }
-	    else{
-		data[data.length-1] = element;
-		start = data.length-1;
-	    }
-	} else if (start-1 > end && data[start-1] == null) {
+	//beginning of adding, when the whole array is empty
+	if (data[start] == null) {
+	    data[start] = element;
+	}
+	//if the start is 0 and the end of the array is empty
+	else if (start == 0 && data[data.length-1] == null) {
+	    //otherwise add it to the end of the array
+	    data[data.length-1] = element;
+	    start = data.length-1;
+	}
+	//if the place where the start will be added is more than the end and empty
+	else if (start-1 > end && data[start-1] == null) {
+	    //add element there
 	    data[start-1] = element;
 	    start--;
 	}
 	else {
+	    //this is if the start is more than the end and the unit behind it is not empty
+	    //this inidicates the array is full and you must resize
 	    resize();
 	    data[data.length-1] = element;
 	    start = data.length-1;
@@ -97,27 +107,33 @@ public class MyDeque<E>{
     }
     public E addLast(E element) {
 	E old = data[end];
-	if (end == 0) {
+	//this is if the end is one or two ahead of the start
+	if (end == start+1 || end == start+2) {
 	    data[end] = element;
 	    end++;
 	}
-	else if (end < data.length-1) {
-	    if(data[end] == null) {
-		data[end] = element;
+	//if it is less than the array length
+	else if (end < data.length-1 && data[end+1] == null) {
+	    if(data[end+1] == null) {
+		data[end+1] = element;
 		end++;
 	    }
-	} else if (data[0] == null)  {
+	}
+	//if the beginning of the array is empty while end is at the last index of the array
+	else if (data[0] == null)  {
 	    data[0] = element;
 	    end = 0;
-	} else {
+	}
+	//if not the array is full and you must resize
+	else {
 	    resize();
-	    data[end-1] = element;
+	    data[end+1] = element;
 	    end++;
 	}
 	size++;
 	return old;
     }
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     private void resize() {
 	    E[] temp = (E[]) new Object[data.length * data.length];
 	if (start < end) {
@@ -142,6 +158,7 @@ public class MyDeque<E>{
     public static void main(String[] args) {
 	MyDeque a = new MyDeque(5);
 	a.addFirst(1);
+	System.out.println(a.toString());
 	a.addFirst(0);
 	a.addFirst(3);
 	a.addLast(4);
