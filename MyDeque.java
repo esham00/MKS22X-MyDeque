@@ -22,10 +22,10 @@ public class MyDeque<E>{
     }
     public String toString() {
 	String output = "[";
-	if (start == end) {
+	if (start == end && data[start] != null) {
 	    output += data[start];
 	}
-	else if (start < end) {
+	else if (start < end && data[end] != null && data[start] != null) {
 	    for(int i = start; i <= end; i++) {
 		if (i == end) {
 		    output += data[i];
@@ -33,7 +33,7 @@ public class MyDeque<E>{
 		    output += data[i] + ", ";
 		}
 	    }
-	} else {
+	} else if (data[start] != null && data[end] != null) {
 	    for(int i = start; i < data.length; i++) {
 		output += data[i] + ", ";
 	    }
@@ -158,32 +158,46 @@ public class MyDeque<E>{
 	end = size-1;
 	data = temp;
     }
-    @SuppressWarnings("unchecked")
-    public static void main(String[] args) {
-	MyDeque a = new MyDeque(5);
-	a.addFirst(1);
-	System.out.println(a.toString());
-	a.addFirst(0);
-	System.out.println(a.toString());
-	a.addFirst(3);
-	System.out.println(a.toString());
-	a.addLast(4);
-	System.out.println(a.toString());
-	a.addLast(5);
-	System.out.println(a.toString());
-	a.addLast(6);
-	System.out.println(a);
-	System.out.println(a.getFirst());
-	System.out.println(a.getLast());
-	a.removeFirst();
-	System.out.println(a);
-	a.removeFirst();
-	System.out.println(a);
-	a.removeFirst();
-	System.out.println(a);
-	a.removeLast();
-	System.out.println(a);
-	a.removeLast();
-	System.out.println(a);
-    }
+    // @SuppressWarnings("unchecked")
+    // public static void main(String[] args) {
+    // 	MyDeque a = new MyDeque(5);
+    // 	a.addFirst(1);
+    // 	System.out.println(a.toString());
+    // 	a.addFirst(0);
+    // 	System.out.println(a.toString());
+    // 	a.addFirst(3);
+    // 	System.out.println(a.toString());
+    // 	a.addLast(4);
+    // 	System.out.println(a.toString());
+    // 	a.addLast(5);
+    // 	System.out.println(a.toString());
+    // 	a.addLast(6);
+    // 	System.out.println(a);
+    // 	System.out.println(a.getFirst());
+    // 	System.out.println(a.getLast());
+    // 	a.removeFirst();
+    // 	System.out.println(a.getFirst());
+    // 	System.out.println(a.getLast());
+    // 	System.out.println(a);
+    // 	a.removeFirst();
+    // 	System.out.println(a.getFirst());
+    // 	System.out.println(a.getLast());
+    // 	System.out.println(a);
+    // 	a.removeFirst();
+    // 	System.out.println(a.getFirst());
+    // 	System.out.println(a.getLast());
+    // 	System.out.println(a);
+    // 	a.removeLast();
+    // 	System.out.println(a.getFirst());
+    // 	System.out.println(a.getLast());
+    // 	System.out.println(a);
+    // 	a.removeLast();
+    // 	System.out.println(a.getFirst());
+    // 	System.out.println(a.getLast());
+    // 	System.out.println(a);
+    // 	a.removeLast();
+    // 	System.out.println(a.getFirst());
+    // 	System.out.println(a.getLast());
+    // 	System.out.println(a);
+    // }
 }
