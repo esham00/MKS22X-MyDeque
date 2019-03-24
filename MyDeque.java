@@ -160,9 +160,13 @@ public class MyDeque<E>{
 	a.addFirst(1);
 	System.out.println(a.toString());
 	a.addFirst(0);
+	System.out.println(a.toString());
 	a.addFirst(3);
+	System.out.println(a.toString());
 	a.addLast(4);
+	System.out.println(a.toString());
 	a.addLast(5);
+	System.out.println(a.toString());
 	a.addLast(6);
 	System.out.println(a);
 	System.out.println(a.getFirst());
