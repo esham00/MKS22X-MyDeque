@@ -1,15 +1,21 @@
 public class MyDeque<E>{
     private E[] data;
     private int size, start, end;
+	@SuppressWarnings("unchecked")
     public MyDeque() {
-	@SuppressWarnings("unchecked")
-	    data = new (E[])new Object[20];
+	E[] DATA =(E[])new Object[20];
+	data = DATA;
 	size = 0;
+	start = 0;
+	end = 0;
     }
-    public MyDeque(int initialCapacity) {
 	@SuppressWarnings("unchecked")
-	    data = new (E[])new Object[initialCapacity];
+    public MyDeque(int initialCapacity) {
+	E[] DATA = (E[])new Object[initialCapacity];
+	data = DATA;
 	size = 0;
+	start = 0;
+	end = 0;
     }
     public int size() {
 	return size;
@@ -19,7 +25,7 @@ public class MyDeque<E>{
 	if (start < end) {
 	    for(int i = start; i < end; i++) {
 		if (i == end-1) {
-		    output += data[i];
+		    output += " " + data[i];
 		} else {
 		    output += data[i] + ", ";
 		}
@@ -30,7 +36,7 @@ public class MyDeque<E>{
 	    }
 	    for(int i = 0; i < end; i++) {
 		if(i == end-1) {
-		    output += data[i];
+		    output += " " + data[i];
 		} else {
 		    output += data[i] + ", ";
 		}
@@ -89,7 +95,11 @@ public class MyDeque<E>{
     }
     public E addLast(E element) {
 	E old = data[end];
-	if (end < data.length-1) {
+	if (end == 0) {
+	    data[end] = element;
+	    end++;
+	}
+	else if (end < data.length-1) {
 	    if(data[end+1] == null) {
 		data[end+1] = element;
 		end++;
@@ -105,8 +115,9 @@ public class MyDeque<E>{
 	size++;
 	return old;
     }
+	@SuppressWarnings("unchecked")
     private void resize() {
-	E[] temp = new E[data.length * data.length];
+	    E[] temp = (E[]) new Object[data.length * data.length];
 	if (start < end) {
 	    for(int i = 0; i < end-start; i++) {
 		temp[i] = data[i+start];
@@ -125,9 +136,14 @@ public class MyDeque<E>{
 	end = size-1;
 	data = temp;
     }
+	@SuppressWarnings("unchecked")
     public static void main(String[] args) {
 	MyDeque a = new MyDeque(5);
-	a.addLast(1);
+	a.addFirst(1);
+	a.addFirst(0);
+	a.addFirst(3);
 	System.out.println(a);
+	System.out.println(a.getFirst());
+	System.out.println(a.getLast());
     }
 }
