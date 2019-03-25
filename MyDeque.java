@@ -102,8 +102,11 @@ public class MyDeque<E>{
 	E old = data[start];
 	//set the first element to null
 	data[start] = null;
+	if (start == end) {
+	    start = start;
+	}
 	//if the start index is at the end then set it to the first element
-	if (start == data.length-1) {
+	else if (start == data.length-1) {
 	    start = 0;
 	}
 	//if not set start 1 ahead
@@ -124,7 +127,9 @@ public class MyDeque<E>{
 	E old = data[end];
 	data[end] = null;
 	//if the end is 0 then the new end is the last index of data
-	if(end == 0) {
+	if (end == start) {
+	    end = end;
+	} else if(end == 0) {
 	    end = data.length-1;
 	} else {
 	    //else end is subtracted by 1
@@ -228,11 +233,11 @@ public class MyDeque<E>{
 	end = size-1;
 	data = temp;
     }
-    // @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     // public static void main(String[] args) {
-    // 	MyDeque a = new MyDeque(5);
+    // 	MyDeque a = new MyDeque();
     // 	a.addLast(0);
-    // 	System.out.println(a.getFirst());
+    // 	a.addLast(1);
     // 	System.out.println(a);
     // 	a.addFirst(1);
     // 	System.out.println(a.toString());
