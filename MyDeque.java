@@ -198,24 +198,30 @@ public class MyDeque<E>{
     }
     @SuppressWarnings("unchecked")
     private void resize() {
-	System.out.println("resizing" + data.length);
 	    E[] temp = (E[]) new Object[data.length * data.length];
 	if (start <= end) {
 	    for(int i = 0; i <= end-start; i++) {
 		temp[i] = data[i+start];
 	    }
 	} else {
-	    for(int i = 0; i < data.length-start; i++) {
-	        // System.out.println(data[i+start]);
-	        // System.out.println(temp[i]);
-		// System.out.println("Index: " + i);
-		temp[i] = data[i+start];
+	    //System.out.println("resizing" + data.length);
+	int tracker = 0;
+	    for(int i = start; i < data.length; i++) {
+	        // System.out.println(data[i]);
+	        // System.out.println(temp[i-start]);
+		// System.out.println("Index: " + (tracker));
+		temp[tracker] = data[i];
+		tracker++;
 	    }
 	    for(int i = 0; i <= end; i++) {
+		// System.out.println("Start: " + start);
+		// System.out.println("End: " + end);
+		// System.out.println(getLast());
 		// System.out.println(data[i]);
 		// System.out.println(temp[i+start]);
-		// System.out.println("Index: " + (i+start+1));
-		temp[i+start+1] = data[i];
+		// System.out.println("Index: " + (tracker));
+		temp[tracker] = data[i];
+		tracker++;
 	    }
 	}
 	start = 0;
