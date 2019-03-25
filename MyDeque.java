@@ -25,9 +25,11 @@ public class MyDeque<E>{
     }
     public String toString() {
 	String output = "[";
+	//if the array only has one element print only that one element
 	if (start == end && data[start] != null) {
 	    output += data[start];
 	}
+	//go from start to end if start < end
 	else if (start < end && data[end] != null && data[start] != null) {
 	    for(int i = start; i <= end; i++) {
 		if (i == end) {
@@ -36,10 +38,14 @@ public class MyDeque<E>{
 		    output += data[i] + ", ";
 		}
 	    }
-	} else if (data[start] != null && data[end] != null) {
+	}
+	//if start > end
+	else if (data[start] != null && data[end] != null) {
+	    //go from start to the end of the array
 	    for(int i = start; i < data.length; i++) {
 		output += data[i] + ", ";
 	    }
+	    //beginning to end
 	    for(int i = 0; i <= end; i++) {
 		if(i == end) {
 		    output += data[i];
@@ -48,34 +54,12 @@ public class MyDeque<E>{
 		}
 	    }
 	}
-	return output + "]";
-    }
-    public String toStringDebug() {
-	String output = "";
-	if (start == end && data[start] != null) {
-	    output += data[start];
+	output = output + "]";
+	//return the output
+	if (output.equals("[]")) {
+		output = "{}";
 	}
-	else if (start < end && data[end] != null && data[start] != null) {
-	    for(int i = start; i <= end; i++) {
-		if (i == end) {
-		    output += data[i];
-		} else {
-		    output += data[i] + ", ";
-		}
-	    }
-	} else {
-	    for(int i = start; i < data.length; i++) {
-		output += data[i] + ", ";
-	    }
-	    for(int i = 0; i <= end; i++) {
-		if(i == end) {
-		    output += data[i];
-		} else {
-		    output += data[i] + ", ";
-		}
-	    }
-	}
-	return output + "]";
+	return output;
     }
 	
     //getting the first element
