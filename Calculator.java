@@ -11,10 +11,8 @@ public class Calculator{
 		    values.addLast(Double.parseDouble(st[i]));
 	    }
 	    catch(NumberFormatException e) {
-		Double a = values.getLast();
-		values.removeLast();
-		Double b = values.getLast();
-		values.removeLast();
+		Double a = values.removeLast();
+		Double b = values.removeLast();
 		char operation = st[i].charAt(0);
 		System.out.println(a + " " + operation +" "  + b);
 		if (operation == '+') {
