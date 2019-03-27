@@ -3,21 +3,16 @@ public class Calculator{
     public static double eval(String s){
         MyDeque<Double> values = new MyDeque<Double>();
 	String[] st = s.split(" ");
-	int j = 0;
 	for(int i = 0; i < st.length; i++) {
 	    try {
-	        if(j % 2 == 1) {
 		    System.out.println(Double.parseDouble(st[i]));	    
 		    values.addLast(Double.parseDouble(st[i]));
-		} else {	
 		    System.out.println(Double.parseDouble(st[i]));	    
-		    values.addFirst(Double.parseDouble(st[i]));
-		}
-		j++;
+		    values.addLast(Double.parseDouble(st[i]));
 	    }
 	    catch(NumberFormatException e) {
-		Double a = values.getFirst();
-		values.removeFirst();
+		Double a = values.getLast();
+		values.removeLast();
 		Double b = values.getLast();
 		values.removeLast();
 		char operation = st[i].charAt(0);
@@ -32,7 +27,6 @@ public class Calculator{
 		    values.addLast(a-b);
 		}
 		System.out.println(values.getLast());
-		j = 0;
 	    }
 	}
 	return values.getFirst();
